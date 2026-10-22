@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jayraldine's Catering - Financial Decision & Advisory AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #070b14;
+      color: #e2e8f0;
+    }
+    code, pre {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 3px;
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glow-gold {
+      box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.25);
+    }
+    .glow-rose {
+      box-shadow: 0 0 25px -5px rgba(244, 63, 94, 0.3);
+    }
+    .glow-emerald {
+      box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.25);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Top Navigation Bar -->
+  <header class="border-b border-gray-800 bg-[#0a0f1d]/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-300 flex items-center justify-center text-gray-950 font-black shadow-lg shadow-amber-500/20 text-lg">
+          <i class="fa-solid fa-utensils"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-lg tracking-tight text-white">Jayraldine's</span>
+            <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30">CFO & Advisory AI</span>
+          </div>
+          <p class="text-[11px] text-gray-400">Financial Analytics, Periodic Reporting & Decision Optimization</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="hidden sm:flex items-center gap-1.5 text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-full">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>Live Database (₱10.9M Billed)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-6 text-sm border-t border-gray-800/60 overflow-x-auto custom-scrollbar">
+      <button onclick="switchTab('advisor')" id="tab-advisor" class="py-3 px-1 text-amber-500 border-b-2 border-amber-500 font-semibold flex items-center gap-2 whitespace-nowrap">
+        <i class="fa-solid fa-comments-dollar"></i> Strategic Advisor Chat
+      </button>
+      <button onclick="switchTab('reports')" id="tab-reports" class="py-3 px-1 text-gray-400 hover:text-gray-200 border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap">
+        <i class="fa-solid fa-chart-column"></i> Daily / Weekly / Monthly / Yearly Reports
+      </button>
+      <button onclick="switchTab('costbuilder')" id="tab-costbuilder" class="py-3 px-1 text-gray-400 hover:text-gray-200 border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap">
+        <i class="fa-solid fa-calculator"></i> Cost of Everything & Profit Calculator
+      </button>
+      <button onclick="switchTab('burn')" id="tab-burn" class="py-3 px-1 text-gray-400 hover:text-gray-200 border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap">
+        <i class="fa-solid fa-shield-halved"></i> Expense Burn & Stop Spending
+      </button>
+      <button onclick="switchTab('foodsets')" id="tab-foodsets" class="py-3 px-1 text-gray-400 hover:text-gray-200 border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap">
+        <i class="fa-solid fa-box-open"></i> Food Sets Unit Costing
+      </button>
+      <button onclick="switchTab('receivables')" id="tab-receivables" class="py-3 px-1 text-gray-400 hover:text-gray-200 border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap">
+        <i class="fa-solid fa-file-invoice-dollar"></i> Receivables Recovery
+      </button>
+      <button onclick="switchTab('events')" id="tab-events" class="py-3 px-1 text-gray-400 hover:text-gray-200 border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap">
+        <i class="fa-solid fa-calendar-days"></i> Booking Ledger
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+    <!-- KPI Metric Cards Grid -->
+    <section id="kpi-banner" class="grid grid-cols-2 md:grid-cols-5 gap-4">
+      <div class="glass-card p-4 rounded-2xl">
+        <div class="flex items-center justify-between text-xs text-gray-400 mb-1">
+          <span>Contracted Revenue</span>
+          <i class="fa-solid fa-receipt text-amber-400"></i>
+        </div>
+        <div id="kpi-revenue" class="text-xl font-extrabold text-white">Loading...</div>
+        <div class="text-[11px] text-gray-400 mt-1">
+          <span class="text-emerald-400"><span id="kpi-event-count">--</span> confirmed events</span>
+        </div>
+      </div>
+
+      <div class="glass-card p-4 rounded-2xl">
+        <div class="flex items-center justify-between text-xs text-gray-400 mb-1">
+          <span>Cash Collected</span>
+          <i class="fa-solid fa-money-bill-wave text-emerald-400"></i>
+        </div>
+        <div id="kpi-collected" class="text-xl font-extrabold text-emerald-400">Loading...</div>
+        <div class="text-[11px] text-gray-400 mt-1">
+          <span id="kpi-collection-rate" class="font-bold text-white">--%</span> collection rate
+        </div>
+      </div>
+
+      <div class="glass-card p-4 rounded-2xl">
+        <div class="flex items-center justify-between text-xs text-gray-400 mb-1">
+          <span>Open Receivables</span>
+          <i class="fa-solid fa-clock-rotate-left text-rose-400"></i>
+        </div>
+        <div id="kpi-unpaid" class="text-xl font-extrabold text-rose-400">Loading...</div>
+        <div class="text-[11px] text-gray-400 mt-1">
+          <span id="kpi-unpaid-count" class="font-bold text-rose-300">--</span> bookings with balance
+        </div>
+      </div>
+
+      <div class="glass-card p-4 rounded-2xl">
+        <div class="flex items-center justify-between text-xs text-gray-400 mb-1">
+          <span>Avg Booking Value</span>
+          <i class="fa-solid fa-users text-blue-400"></i>
+        </div>
+        <div id="kpi-avg-booking" class="text-xl font-extrabold text-blue-400">Loading...</div>
+        <div class="text-[11px] text-gray-400 mt-1">
+          Avg <span id="kpi-avg-pax" class="font-bold text-white">--</span> pax per event
+        </div>
+      </div>
+
+      <div class="glass-card p-4 rounded-2xl col-span-2 md:col-span-1">
+        <div class="flex items-center justify-between text-xs text-gray-400 mb-1">
+          <span>Top Revenue Category</span>
+          <i class="fa-solid fa-cake-candles text-indigo-400"></i>
+        </div>
+        <div id="kpi-top-occasion" class="text-lg font-bold text-indigo-300 truncate">Loading...</div>
+        <div class="text-[11px] text-gray-400 mt-1">
+          ₱<span id="kpi-top-occasion-rev" class="font-bold text-white">--</span> in sales
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 1: STRATEGIC ADVISOR CHAT WITH THINKING EXPERIENCE -->
+    <div id="view-advisor" class="space-y-6">
+      
+      <!-- Quick Prompt Suggestion Chips -->
+      <div class="flex flex-wrap gap-2 items-center">
+        <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider mr-1">Ask Advisor:</span>
+        <button onclick="askPreset('Give me a daily report for today / recent active day')" class="text-xs px-3 py-1.5 rounded-lg bg-gray-800/90 hover:bg-gray-700 text-gray-200 border border-gray-700 transition flex items-center gap-1.5">
+          <span>📅</span> Daily Operations Report
+        </button>
+        <button onclick="askPreset('Give me a weekly financial report')" class="text-xs px-3 py-1.5 rounded-lg bg-gray-800/90 hover:bg-gray-700 text-gray-200 border border-gray-700 transition flex items-center gap-1.5">
+          <span>📆</span> Weekly Financial Report
+        </button>
+        <button onclick="askPreset('Give me a monthly report for October')" class="text-xs px-3 py-1.5 rounded-lg bg-gray-800/90 hover:bg-gray-700 text-gray-200 border border-gray-700 transition flex items-center gap-1.5">
+          <span>🗓️</span> Monthly Report (October)
+        </button>
+        <button onclick="askPreset('Give me a yearly executive review comparing 2025 vs 2026')" class="text-xs px-3 py-1.5 rounded-lg bg-gray-800/90 hover:bg-gray-700 text-gray-200 border border-gray-700 transition flex items-center gap-1.5">
+          <span>📈</span> 2025 vs 2026 Yearly Review
+        </button>
+        <button onclick="askPreset('Should I stop spending right now? What is our burn rate?')" class="text-xs px-3 py-1.5 rounded-lg bg-gray-800/90 hover:bg-gray-700 text-gray-200 border border-gray-700 transition flex items-center gap-1.5">
+          <span>🛑</span> Stop Spending Decision
+        </button>
+      </div>
+
+      <!-- Chat Stream -->
+      <div id="chat-stream" class="space-y-5">
+        <div class="glass-card rounded-2xl p-6 border-amber-500/20 glow-gold">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xl flex-shrink-0">
+              <i class="fa-solid fa-user-tie"></i>
+            </div>
+            <div class="space-y-2">
+              <h2 class="text-lg font-bold text-white">Your Dedicated Financial & Decision Advisor</h2>
+              <p class="text-sm text-gray-300 leading-relaxed">
+                Hi Rey, I'm analyzing Jayraldine's numbers directly from your <strong>₱10.9M</strong> database. You can ask me for a <strong>Daily</strong>, <strong>Weekly</strong>, <strong>Monthly</strong>, or <strong>Yearly</strong> report anytime to evaluate your progress and decide your next operational steps.
+              </p>
+              <div class="pt-2 flex flex-wrap gap-4 text-xs text-gray-400">
+                <span class="flex items-center gap-1.5"><i class="fa-solid fa-check text-emerald-400"></i> Multi-Timeframe Reporting (Day/Week/Month/Year)</span>
+                <span class="flex items-center gap-1.5"><i class="fa-solid fa-check text-emerald-400"></i> Dynamic Expense Burn & Stop-Spending Alert</span>
+                <span class="flex items-center gap-1.5"><i class="fa-solid fa-check text-emerald-400"></i> Full Cost & Profit Calculator</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Input Box -->
+      <div class="glass-card p-3 rounded-2xl sticky bottom-4 z-40 border-gray-700 shadow-2xl">
+        <form id="chat-form" onsubmit="handleAdvisorSubmit(event)" class="flex gap-2 items-center">
+          <div class="relative flex-1">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+              <i class="fa-solid fa-comment-dollar"></i>
+            </div>
+            <input 
+              type="text" 
+              id="advisor-input" 
+              placeholder="Ask for a report (e.g. 'Show me our weekly report', 'What did we make on Oct 24?', 'Compare 2025 vs 2026')..." 
+              class="w-full pl-10 pr-4 py-3 bg-gray-900/90 text-white placeholder-gray-500 rounded-xl border border-gray-700 focus:outline-none focus:border-amber-500 transition text-sm"
+              autocomplete="off"
+            />
+          </div>
+          <button 
+            type="submit" 
+            class="px-5 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-gray-950 font-bold text-sm flex items-center gap-2 shadow-lg shadow-amber-500/20 transition"
+          >
+            <span>Consult AI</span>
+            <i class="fa-solid fa-paper-plane text-xs"></i>
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+    <!-- TAB 2: PERIODIC REPORTS HUB (DAILY / WEEKLY / MONTHLY / YEARLY) -->
+    <div id="view-reports" class="hidden space-y-6">
+      <div class="glass-card p-5 rounded-2xl flex flex-wrap gap-4 items-center justify-between">
+        <div>
+          <h3 class="font-bold text-white text-base flex items-center gap-2">
+            <i class="fa-solid fa-chart-column text-amber-400"></i>
+            Periodic Financial & Operational Reports
+          </h3>
+          <p class="text-xs text-gray-400 mt-1">
+            Track, update, and inspect your financial results across Daily, Weekly, Monthly, and Yearly intervals.
+          </p>
+        </div>
+
+        <!-- Timeframe Selector Pill -->
+        <div class="flex items-center gap-1.5 p-1 bg-gray-900 rounded-xl border border-gray-800">
+          <button onclick="setReportTimeframe('daily')" id="btn-tf-daily" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-gray-950 transition">Daily</button>
+          <button onclick="setReportTimeframe('weekly')" id="btn-tf-weekly" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-gray-400 hover:text-white transition">Weekly</button>
+          <button onclick="setReportTimeframe('monthly')" id="btn-tf-monthly" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-gray-400 hover:text-white transition">Monthly</button>
+          <button onclick="setReportTimeframe('yearly')" id="btn-tf-yearly" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-gray-400 hover:text-white transition">Yearly</button>
+        </div>
+      </div>
+
+      <!-- Target Period Selector Form -->
+      <div class="glass-card p-4 rounded-2xl flex flex-wrap gap-4 items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="text-xs font-semibold text-gray-300" id="report-picker-label">Select Date:</span>
+          
+          <!-- Daily Date Picker -->
+          <input type="date" id="report-date-picker" value="2026-10-24" onchange="fetchPeriodicReport()" class="px-3 py-1.5 bg-gray-900 border border-gray-700 rounded-lg text-xs text-white">
+
+          <!-- Monthly Dropdown (hidden by default) -->
+          <select id="report-month-picker" onchange="fetchPeriodicReport()" class="hidden px-3 py-1.5 bg-gray-900 border border-gray-700 rounded-lg text-xs text-white">
+            <option value="2026-10" selected>October 2026</option>
+            <option value="2026-09">September 2026</option>
+            <option value="2026-08">August 2026</option>
+            <option value="2026-07">July 2026</option>
+            <option value="2026-06">June 2026</option>
+            <option value="2026-05">May 2026</option>
+            <option value="2026-04">April 2026</option>
+            <option value="2026-03">March 2026</option>
+          </select>
+
+          <!-- Yearly Dropdown (hidden by default) -->
+          <select id="report-year-picker" onchange="fetchPeriodicReport()" class="hidden px-3 py-1.5 bg-gray-900 border border-gray-700 rounded-lg text-xs text-white">
+            <option value="2026" selected>Year 2026</option>
+            <option value="2025">Year 2025</option>
+          </select>
+        </div>
+
+        <button onclick="askAboutCurrentReport()" class="px-4 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold flex items-center gap-2 transition">
+          <i class="fa-solid fa-comments"></i> Ask Advisor to Analyze This Report
+        </button>
+      </div>
+
+      <!-- Report Scorecards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="glass-card p-4 rounded-2xl">
+          <span class="text-[11px] text-gray-400">Contracted Revenue</span>
+          <div id="rep-rev" class="text-2xl font-black text-white font-mono mt-1">₱0.00</div>
+          <div class="text-[10px] text-gray-400 mt-1"><span id="rep-events">0</span> events booked</div>
+        </div>
+        <div class="glass-card p-4 rounded-2xl">
+          <span class="text-[11px] text-gray-400">Collected Cash</span>
+          <div id="rep-collected" class="text-2xl font-black text-emerald-400 font-mono mt-1">₱0.00</div>
+          <div class="text-[10px] text-gray-400 mt-1">Deposited to bank/GCash</div>
+        </div>
+        <div class="glass-card p-4 rounded-2xl">
+          <span class="text-[11px] text-gray-400">Direct Recorded Expenses</span>
+          <div id="rep-exp" class="text-2xl font-black text-rose-400 font-mono mt-1">₱0.00</div>
+          <div class="text-[10px] text-gray-400 mt-1">Suppliers & labor recorded</div>
+        </div>
+        <div class="glass-card p-4 rounded-2xl">
+          <span class="text-[11px] text-gray-400">Net Profit & Realized Margin</span>
+          <div id="rep-profit" class="text-2xl font-black text-amber-400 font-mono mt-1">₱0.00</div>
+          <div class="text-[10px] text-amber-300 font-semibold mt-1"><span id="rep-margin">0.0%</span> profit margin</div>
+        </div>
+      </div>
+
+      <!-- Decision Support & Advisory Guidance Box -->
+      <div class="glass-card p-5 rounded-2xl space-y-3 border-amber-500/30 glow-gold">
+        <div class="flex items-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-wider">
+          <i class="fa-solid fa-compass"></i> Advisor Operational Decision Guidance for This Period
+        </div>
+        <div id="rep-decisions" class="space-y-2">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- Events & Expense Breakdown Table for this period -->
+      <div class="glass-card rounded-2xl overflow-hidden border border-gray-800">
+        <div class="p-4 border-b border-gray-800 flex justify-between items-center bg-gray-900/60">
+          <h4 class="text-xs font-bold text-white uppercase tracking-wider" id="rep-table-title">Events in this Period</h4>
+          <span class="text-[11px] text-gray-400" id="rep-guest-count">Total Guests: 0 pax</span>
+        </div>
+        <div class="overflow-x-auto custom-scrollbar max-h-60">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-gray-900 sticky top-0 text-gray-400 uppercase text-[10px]">
+              <tr>
+                <th class="p-3">Ref</th>
+                <th class="p-3">Client</th>
+                <th class="p-3">Occasion</th>
+                <th class="p-3">Date</th>
+                <th class="p-3 text-right">Pax</th>
+                <th class="p-3 text-right">Quoted Total</th>
+                <th class="p-3 text-right">Paid</th>
+                <th class="p-3 text-right">Balance</th>
+              </tr>
+            </thead>
+            <tbody id="rep-events-tbody" class="divide-y divide-gray-800">
+              <tr><td colspan="8" class="p-6 text-center text-gray-500">Loading period records...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: COST OF EVERYTHING & PROFIT CALCULATOR -->
+    <div id="view-costbuilder" class="hidden space-y-6">
+      <div class="glass-card p-5 rounded-2xl">
+        <h3 class="font-bold text-white text-base flex items-center gap-2">
+          <i class="fa-solid fa-calculator text-amber-400"></i>
+          The "Cost of Everything" & Profit Calculator
+        </h3>
+        <p class="text-xs text-gray-400 mt-1">
+          Input the exact cost of your ingredients, meats, staff, transport, and overhead. See your real-time net profit and get an immediate financial verdict on whether your margin is safe or compressed.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Cost Inputs Column 1 & 2 -->
+        <div class="glass-card p-5 rounded-2xl lg:col-span-2 space-y-5">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-amber-400 uppercase tracking-wider mb-1">Contract / Quoted Price (₱)</label>
+              <input type="number" id="cb-price" oninput="calculateCustomCostLive()" value="46500" step="500" class="w-full p-2.5 bg-gray-900 border border-amber-500/50 rounded-xl text-base font-bold text-white focus:outline-none focus:border-amber-400 font-mono">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-300 mb-1">Guest Count (Pax)</label>
+              <input type="number" id="cb-pax" oninput="calculateCustomCostLive()" value="80" min="10" max="1000" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-xl text-xs text-white">
+            </div>
+          </div>
+
+          <!-- Section: Food & Ingredients -->
+          <div class="space-y-3 pt-3 border-t border-gray-800">
+            <h4 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+              <i class="fa-solid fa-drumstick-bite text-amber-400"></i> Raw Food & Ingredient Costs (₱)
+            </h4>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <div>
+                <label class="block text-gray-400 mb-1">Meat & Poultry (Pork, Chicken, Beef)</label>
+                <input type="number" id="cb-meat" oninput="calculateCustomCostLive()" value="9500" step="100" class="w-full p-2 bg-gray-900 border border-gray-700 rounded-lg text-white font-mono">
+              </div>
+              <div>
+                <label class="block text-gray-400 mb-1">Seafood / Specialty Proteins</label>
+                <input type="number" id="cb-seafood" oninput="calculateCustomCostLive()" value="3800" step="100" class="w-full p-2 bg-gray-900 border border-gray-700 rounded-lg text-white font-mono">
+              </div>
+              <div>
+                <label class="block text-gray-400 mb-1">Produce & Vegetables</label>
+                <input type="number" id="cb-produce" oninput="calculateCustomCostLive()" value="2600" step="100" class="w-full p-2 bg-gray-900 border border-gray-700 rounded-lg text-white font-mono">
+              </div>
+              <div>
+                <label class="block text-gray-400 mb-1">Rice, Oil, Spices & Staples</label>
+                <input type="number" id="cb-staples" oninput="calculateCustomCostLive()" value="1500" step="50" class="w-full p-2 bg-gray-900 border border-gray-700 rounded-lg text-white font-mono">
+              </div>
+              <div>
+                <label class="block text-gray-400 mb-1">Dessert & Softdrinks</label>
+                <input type="number" id="cb-dessert" oninput="calculateCustomCostLive()" value="1800" step="50" class="w-full p-2 bg-gray-900 border border-gray-700 rounded-lg text-white font-mono">
+              </div>
+              <div>
+                <label class="block text-amber-300 font-semibold mb-1">Lechon Belly / Whole Lechon</label>
+                <input type="number" id="cb-lechon" oninput="calculateCustomCostLive()" value="8500" step="500" class="w-full p-2 bg-gray-900 border border-gray-700 rounded-lg text-white font-mono">
+              </div>
+            </div>
+          </div>
+
+          <!-- Section: Labor & Staffing -->
+          <div class="space-y-3 pt-3 border-t border-gray-800">
+            <h4 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+              <i class="fa-solid fa-users-gear text-blue-400"></i> Kitchen & Service Crew Labor
+            </h4>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+              <div>
+                <label class="block text-gray-400 mb-1">Cooks Count</label>
+                <input type="number" id="cb-cooks" oninput="calculateCustomCostLive()" value="2" min="1" max="10" class="w-full p-2 bg-gray-900 border border-gray-700 rounded-lg text-white font-mono">
+              </div>
+              <div>
+                <label class="block text-gray-400 mb-1">Cook Daily Rate (₱)</label>
+                <input type="number" id="cb-cook-rate" oninput="calculateCustomCostLive()" value="800" step="50" class="w-full p-2 bg-gray-900 border border-gray-700 rounded-lg text-white font-mono">
+              </div>
+              <div>
+                <label class="block text-gray-400 mb-1">Servers Count</label>
+                <input type="number" id="cb-servers" oninput="calculateCustomCostLive()" value="4" min="1" max="25" class="w-full p-2 bg-gray-900 border border-gray-700 rounded-lg text-white font-mono">
+              </div>
+              <div>
+                <label class="block text-gray-400 mb-1">Server Shift Rate (₱)</label>
+                <input type="number" id="cb-server-rate" oninput="calculateCustomCostLive()" value="600" step="50" class="w-full p-2 bg-gray-900 border border-gray-700 rounded-lg text-white font-mono">
+              </div>
+            </div>
+          </div>
+
+          <!-- Section: Logistics & Rentals -->
+          <div class="space-y-3 pt-3 border-t border-gray-800">
+            <h4 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+              <i class="fa-solid fa-truck text-emerald-400"></i> Transport, Rentals & Overhead (₱)
+            </h4>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+              <div>
+                <label class="block text-gray-400 mb-1">Transport & Fuel</label>
+                <input type="number" id="cb-fuel" oninput="calculateCustomCostLive()" value="1200" step="100" class="w-full p-2 bg-gray-900 border border-gray-700 rounded-lg text-white font-mono">
+              </div>
+              <div>
+                <label class="block text-gray-400 mb-1">Linens & Rentals</label>
+                <input type="number" id="cb-rentals" oninput="calculateCustomCostLive()" value="1500" step="100" class="w-full p-2 bg-gray-900 border border-gray-700 rounded-lg text-white font-mono">
+              </div>
+              <div>
+                <label class="block text-gray-400 mb-1">Disposables / Fuel</label>
+                <input type="number" id="cb-disposables" oninput="calculateCustomCostLive()" value="600" step="50" class="w-full p-2 bg-gray-900 border border-gray-700 rounded-lg text-white font-mono">
+              </div>
+              <div>
+                <label class="block text-gray-400 mb-1">Venue Fee / Commission</label>
+                <input type="number" id="cb-venue" oninput="calculateCustomCostLive()" value="0" step="500" class="w-full p-2 bg-gray-900 border border-gray-700 rounded-lg text-white font-mono">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Financial Summary Card -->
+        <div class="glass-card p-6 rounded-2xl space-y-5 lg:col-span-1 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+              <div>
+                <span class="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Calculated Net Profit</span>
+                <div id="cb-res-profit" class="text-3xl font-black text-emerald-400 font-mono mt-0.5">₱15,500</div>
+              </div>
+              <div class="text-right">
+                <span class="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Gross Margin</span>
+                <div id="cb-res-margin" class="text-3xl font-black text-white font-mono mt-0.5">33.3%</div>
+              </div>
+            </div>
+
+            <div class="space-y-2 text-xs">
+              <div class="flex justify-between py-1 border-b border-gray-800/60">
+                <span class="text-gray-400">Total Direct Costs:</span>
+                <span id="cb-res-costs" class="font-mono font-bold text-white">₱31,000</span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-gray-800/60">
+                <span class="text-gray-400">Total Food Cost:</span>
+                <span id="cb-res-food" class="font-mono text-amber-300">₱25,700 (55.3%)</span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-gray-800/60">
+                <span class="text-gray-400">Total Crew Labor:</span>
+                <span id="cb-res-labor" class="font-mono text-blue-300">₱4,000 (8.6%)</span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-gray-800/60">
+                <span class="text-gray-400">Prime Cost (Food + Labor):</span>
+                <span id="cb-res-prime" class="font-mono font-bold text-white">63.9%</span>
+              </div>
+              <div class="flex justify-between py-1">
+                <span class="text-gray-400">Take-Home Profit / Pax:</span>
+                <span id="cb-res-pax-profit" class="font-mono font-bold text-emerald-400">₱193.75 / head</span>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-gray-900 border border-gray-800 space-y-1.5">
+              <div class="flex items-center gap-1.5">
+                <span id="cb-res-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">APPROVED</span>
+                <span id="cb-res-title" class="text-xs font-bold text-white">Solid Pricing & Healthy Buffer</span>
+              </div>
+              <p id="cb-res-commentary" class="text-[11px] text-gray-300 leading-relaxed">
+                Loading assessment...
+              </p>
+            </div>
+
+            <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[11px] text-amber-200">
+              <span class="font-bold">Advisor Recommendation:</span> <span id="cb-res-advice">Calculating advice...</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TAB 4: EXPENSE BURN & STOP SPENDING SENTINEL -->
+    <div id="view-burn" class="hidden space-y-6">
+      <div class="glass-card p-5 rounded-2xl">
+        <h3 class="font-bold text-white text-base flex items-center gap-2">
+          <i class="fa-solid fa-shield-halved text-rose-400"></i>
+          Expense Burn Sentinel & Stop-Spending Decision Guardrail
+        </h3>
+        <p class="text-xs text-gray-400 mt-1">
+          Monitors your real expense velocity against booked revenue. Automatically alerts you when to freeze non-essential spending so you never run out of operating cash.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Big Stop/Proceed Card -->
+        <div id="burn-verdict-card" class="glass-card p-6 rounded-2xl space-y-5 lg:col-span-1">
+          <div class="space-y-1">
+            <span class="text-xs font-bold uppercase tracking-wider text-gray-400">Current Spending Status</span>
+            <div id="burn-status-title" class="text-xl font-black text-rose-400 leading-tight">
+              Loading...
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-gray-900/90 border border-gray-800 space-y-3">
+            <div class="flex justify-between text-xs">
+              <span class="text-gray-400">Period Monitored:</span>
+              <span id="burn-period" class="font-bold text-white font-mono">--</span>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-gray-400">Month Booked Sales:</span>
+              <span id="burn-rev" class="font-bold text-white font-mono">₱0.00</span>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-gray-400">Current Total Expenses:</span>
+              <span id="burn-exp" class="font-bold text-rose-400 font-mono">₱0.00</span>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-gray-400">Current Burn Rate:</span>
+              <span id="burn-rate" class="font-black text-white font-mono text-sm">--%</span>
+            </div>
+            <div class="pt-2 border-t border-gray-800 flex justify-between text-xs">
+              <span class="text-gray-300 font-semibold">Safe Spending Ceiling (60%):</span>
+              <span id="burn-ceiling" class="font-bold text-amber-400 font-mono">₱0.00</span>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-gray-300 font-semibold">Remaining Safe Buffer:</span>
+              <span id="burn-remaining" class="font-bold text-emerald-400 font-mono">₱0.00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- What to do From Here -->
+        <div class="glass-card p-6 rounded-2xl space-y-4 lg:col-span-2">
+          <h4 class="font-bold text-white text-sm flex items-center gap-2">
+            <i class="fa-solid fa-list-check text-amber-400"></i> What To Do From Here (Action Plan)
+          </h4>
+          <p id="burn-explanation" class="text-xs text-gray-300 leading-relaxed">
+            Evaluating historical burn rates...
+          </p>
+
+          <div class="space-y-2 pt-2">
+            <span class="text-xs uppercase font-bold text-gray-400 tracking-wider">Mandatory Operating Steps</span>
+            <div id="burn-action-steps" class="space-y-2">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-gray-800">
+            <h5 class="text-xs font-bold text-white mb-2">Category Breakdown (This Period)</h5>
+            <div id="burn-category-list" class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TAB 5: FOOD SETS UNIT COSTING -->
+    <div id="view-foodsets" class="hidden space-y-6">
+      <div class="glass-card p-5 rounded-2xl">
+        <h3 class="font-bold text-white text-base flex items-center gap-2">
+          <i class="fa-solid fa-box-open text-amber-400"></i>
+          Predefined Food Sets (Sets A–E @ ₱4,800 for 20 Pax) Unit Economics
+        </h3>
+        <p class="text-xs text-gray-400 mt-1">
+          Eliminating the "undefined margin" blind spot. Below is the complete Bill of Materials (BOM) ingredient recipe costing and contribution margin breakdown for every standard food set.
+        </p>
+      </div>
+
+      <div id="foodsets-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="p-6 text-center text-gray-500">Loading food set costing matrix...</div>
+      </div>
+    </div>
+
+    <!-- TAB 6: UNPAID RECEIVABLES -->
+    <div id="view-receivables" class="hidden space-y-4">
+      <div class="glass-card p-4 rounded-2xl flex flex-wrap gap-4 items-center justify-between">
+        <div>
+          <h3 class="font-bold text-white text-base flex items-center gap-2">
+            <i class="fa-solid fa-file-invoice-dollar text-rose-400"></i>
+            Accounts Receivable Recovery (₱656,990 Total Balance)
+          </h3>
+          <p class="text-xs text-gray-400">Prioritized collection list for the 25 bookings with outstanding balances.</p>
+        </div>
+        <button onclick="loadReceivables()" class="px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 text-xs border border-gray-700">
+          <i class="fa-solid fa-rotate-right mr-1"></i> Refresh List
+        </button>
+      </div>
+
+      <div class="glass-card rounded-2xl overflow-hidden border border-gray-800">
+        <div class="overflow-x-auto custom-scrollbar max-h-[600px]">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-gray-900/90 text-gray-400 uppercase tracking-wider sticky top-0 border-b border-gray-800">
+              <tr>
+                <th class="p-3">Client Name</th>
+                <th class="p-3">Occasion</th>
+                <th class="p-3">Event Date</th>
+                <th class="p-3 text-right">Contract Total</th>
+                <th class="p-3 text-right">Amount Paid</th>
+                <th class="p-3 text-right">Balance Due</th>
+                <th class="p-3 text-center">Collection Priority</th>
+                <th class="p-3">Recommended Action</th>
+              </tr>
+            </thead>
+            <tbody id="receivables-table-body" class="divide-y divide-gray-800">
+              <tr>
+                <td colspan="8" class="p-6 text-center text-gray-500">Loading receivables...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 7: ALL EVENTS EXPLORER -->
+    <div id="view-events" class="hidden space-y-4">
+      <div class="glass-card p-4 rounded-2xl flex flex-wrap gap-4 items-center justify-between">
+        <div>
+          <h3 class="font-bold text-white text-base">Complete Booking Ledger (343 Confirmed Events)</h3>
+          <p class="text-xs text-gray-400">Historical records spanning 2025 to 2026 totaling ₱10.91M in sales.</p>
+        </div>
+        <input 
+          type="text" 
+          id="event-filter" 
+          oninput="filterEventsTable()" 
+          placeholder="Search by client, occasion, or venue..." 
+          class="px-3 py-1.5 bg-gray-900 border border-gray-700 rounded-lg text-xs text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 w-64"
+        />
+      </div>
+
+      <div class="glass-card rounded-2xl overflow-hidden border border-gray-800">
+        <div class="overflow-x-auto custom-scrollbar max-h-[600px]">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-gray-900/90 text-gray-400 uppercase tracking-wider sticky top-0 border-b border-gray-800">
+              <tr>
+                <th class="p-3">Ref</th>
+                <th class="p-3">Client</th>
+                <th class="p-3">Occasion</th>
+                <th class="p-3">Date</th>
+                <th class="p-3 text-right">Pax</th>
+                <th class="p-3 text-right">Total Quoted</th>
+                <th class="p-3 text-right">Paid</th>
+                <th class="p-3 text-right">Balance</th>
+                <th class="p-3">Venue</th>
+              </tr>
+            </thead>
+            <tbody id="all-events-table-body" class="divide-y divide-gray-800">
+              <tr>
+                <td colspan="9" class="p-6 text-center text-gray-500">Loading events...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    let cachedEvents = [];
+    let currentReportTimeframe = 'daily';
+    let currentReportData = null;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      loadKpis();
+      calculateCustomCostLive();
+    });
+
+    function switchTab(tab) {
+      const tabs = ['advisor', 'reports', 'costbuilder', 'burn', 'foodsets', 'receivables', 'events'];
+      tabs.forEach(t => {
+        const viewEl = document.getElementById(`view-${t}`);
+        const tabEl = document.getElementById(`tab-${t}`);
+        if (t === tab) {
+          viewEl.classList.remove('hidden');
+          tabEl.className = "py-3 px-1 text-amber-500 border-b-2 border-amber-500 font-semibold flex items-center gap-2 whitespace-nowrap";
+        } else {
+          viewEl.classList.add('hidden');
+          tabEl.className = "py-3 px-1 text-gray-400 hover:text-gray-200 border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap";
+        }
+      });
+
+      if (tab === 'reports') fetchPeriodicReport();
+      if (tab === 'burn') loadExpenseBurn();
+      if (tab === 'foodsets') loadFoodSets();
+      if (tab === 'receivables') loadReceivables();
+      if (tab === 'events' && cachedEvents.length === 0) loadEvents();
+    }
+
+    async function loadKpis() {
+      try {
+        const res = await fetch("/api/kpis");
+        const data = await res.json();
+        document.getElementById("kpi-revenue").textContent = `₱${(data.total_contracted_revenue / 1000000).toFixed(2)}M`;
+        document.getElementById("kpi-event-count").textContent = data.total_events;
+        document.getElementById("kpi-collected").textContent = `₱${(data.total_collected_cash / 1000000).toFixed(2)}M`;
+        document.getElementById("kpi-collection-rate").textContent = `${data.collection_rate_pct}%`;
+        document.getElementById("kpi-unpaid").textContent = `₱${(data.accounts_receivable_unpaid / 1000).toFixed(1)}k`;
+        document.getElementById("kpi-unpaid-count").textContent = data.unpaid_bookings_count;
+        document.getElementById("kpi-avg-booking").textContent = `₱${data.average_booking_value.toLocaleString()}`;
+        document.getElementById("kpi-avg-pax").textContent = data.average_pax;
+        document.getElementById("kpi-top-occasion").textContent = data.top_revenue_occasion;
+        document.getElementById("kpi-top-occasion-rev").textContent = (data.top_occasion_revenue / 1000000).toFixed(2) + 'M';
+      } catch (e) {
+        console.error("Failed to load KPIs:", e);
+      }
+    }
+
+    // PERIODIC REPORTS LOGIC (DAILY, WEEKLY, MONTHLY, YEARLY)
+    function setReportTimeframe(tf) {
+      currentReportTimeframe = tf;
+      ['daily', 'weekly', 'monthly', 'yearly'].forEach(t => {
+        const btn = document.getElementById(`btn-tf-${t}`);
+        if (t === tf) {
+          btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-gray-950 transition";
+        } else {
+          btn.className = "px-3 py-1.5 rounded-lg text-xs font-semibold text-gray-400 hover:text-white transition";
+        }
+      });
+
+      const datePicker = document.getElementById("report-date-picker");
+      const monthPicker = document.getElementById("report-month-picker");
+      const yearPicker = document.getElementById("report-year-picker");
+      const label = document.getElementById("report-picker-label");
+
+      if (tf === 'daily') {
+        datePicker.classList.remove('hidden');
+        monthPicker.classList.add('hidden');
+        yearPicker.classList.add('hidden');
+        label.textContent = "Select Date:";
+      } else if (tf === 'weekly') {
+        datePicker.classList.remove('hidden');
+        monthPicker.classList.add('hidden');
+        yearPicker.classList.add('hidden');
+        label.textContent = "Select Date in Week:";
+      } else if (tf === 'monthly') {
+        datePicker.classList.add('hidden');
+        monthPicker.classList.remove('hidden');
+        yearPicker.classList.add('hidden');
+        label.textContent = "Select Month:";
+      } else {
+        datePicker.classList.add('hidden');
+        monthPicker.classList.add('hidden');
+        yearPicker.classList.remove('hidden');
+        label.textContent = "Select Year:";
+      }
+
+      fetchPeriodicReport();
+    }
+
+    async function fetchPeriodicReport() {
+      let target = null;
+      if (currentReportTimeframe === 'daily' || currentReportTimeframe === 'weekly') {
+        target = document.getElementById("report-date-picker").value;
+      } else if (currentReportTimeframe === 'monthly') {
+        target = document.getElementById("report-month-picker").value;
+      } else {
+        target = document.getElementById("report-year-picker").value;
+      }
+
+      try {
+        const res = await fetch(`/api/reports?timeframe=${currentReportTimeframe}&target=${encodeURIComponent(target || '')}`);
+        const r = await res.json();
+        currentReportData = r;
+
+        document.getElementById("rep-rev").textContent = `₱${r.revenue.toLocaleString()}`;
+        document.getElementById("rep-events").textContent = r.events_count;
+        document.getElementById("rep-collected").textContent = `₱${r.collected.toLocaleString()}`;
+        document.getElementById("rep-exp").textContent = `₱${r.expenses.toLocaleString()}`;
+        document.getElementById("rep-profit").textContent = `₱${r.net_profit.toLocaleString()}`;
+        document.getElementById("rep-margin").textContent = `${r.margin_pct}%`;
+        document.getElementById("rep-table-title").textContent = r.period_label || `${r.timeframe} Events`;
+        document.getElementById("rep-guest-count").textContent = `Total Guests: ${r.total_pax.toLocaleString()} pax`;
+
+        // Decisions
+        const decContainer = document.getElementById("rep-decisions");
+        decContainer.innerHTML = (r.decisions || []).map(d => `
+          <div class="p-2.5 rounded-xl bg-gray-900 border border-gray-800 text-xs text-amber-100 flex items-start gap-2">
+            <i class="fa-solid fa-circle-arrow-right text-amber-400 mt-1 flex-shrink-0"></i>
+            <span>${d}</span>
+          </div>
+        `).join("");
+
+        // Table Rows
+        const tbody = document.getElementById("rep-events-tbody");
+        const events = r.events || [];
+        if (events.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="8" class="p-6 text-center text-gray-500">No event records scheduled for this period.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = events.map(e => `
+          <tr class="hover:bg-gray-800/40 transition">
+            <td class="p-3 text-gray-400 font-mono">${escapeHtml(e.bk_booking_ref || '')}</td>
+            <td class="p-3 font-semibold text-white">${escapeHtml(e.bk_customer_name)}</td>
+            <td class="p-3 text-gray-300">${escapeHtml(e.bk_occasion || '')}</td>
+            <td class="p-3 text-gray-400">${e.bk_event_date}</td>
+            <td class="p-3 text-right font-mono text-gray-300">${e.bk_pax}</td>
+            <td class="p-3 text-right font-mono text-white">₱${e.bk_total_amount.toLocaleString()}</td>
+            <td class="p-3 text-right font-mono text-emerald-400">₱${e.bk_amount_paid.toLocaleString()}</td>
+            <td class="p-3 text-right font-mono ${(e.balance || 0) > 0 ? 'text-rose-400 font-bold' : 'text-gray-500'}">₱${(e.balance || 0).toLocaleString()}</td>
+          </tr>
+        `).join("");
+
+      } catch (e) {
+        console.error("Periodic report load error:", e);
+      }
+    }
+
+    function askAboutCurrentReport() {
+      if (!currentReportData) return;
+      const tf = currentReportData.timeframe;
+      const target = currentReportData.target_period;
+      switchTab('advisor');
+      askPreset(`Can you break down our ${tf} report for ${target} and give me strategic advice on what to prioritize?`);
+    }
+
+    function askPreset(prompt) {
+      document.getElementById("advisor-input").value = prompt;
+      handleAdvisorSubmit(new Event('submit'));
+    }
+
+    // Thinking Sequence with Realistic Delay & Stepping
+    async function handleAdvisorSubmit(event) {
+      if (event) event.preventDefault();
+      const input = document.getElementById("advisor-input");
+      const question = input.value.trim();
+      if (!question) return;
+
+      input.value = "";
+      const stream = document.getElementById("chat-stream");
+
+      // User Message
+      const userBubble = document.createElement("div");
+      userBubble.className = "flex justify-end";
+      userBubble.innerHTML = `
+        <div class="max-w-2xl bg-amber-500/10 border border-amber-500/30 text-amber-200 px-4 py-3 rounded-2xl rounded-tr-sm text-sm">
+          ${escapeHtml(question)}
+        </div>
+      `;
+      stream.appendChild(userBubble);
+
+      // Thinking Bubble with Live Stepping Indicators
+      const loadId = 'thinking-' + Date.now();
+      const thinkingBubble = document.createElement("div");
+      thinkingBubble.id = loadId;
+      thinkingBubble.className = "flex justify-start w-full";
+      thinkingBubble.innerHTML = `
+        <div class="glass-card p-4 rounded-2xl rounded-tl-sm text-xs text-gray-300 w-full max-w-lg space-y-2 border-amber-500/20">
+          <div class="flex items-center gap-2 text-amber-400 font-bold">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            <span id="think-step-title">Thinking & Auditing Ledger...</span>
+          </div>
+          <div id="think-step-desc" class="text-[11px] text-gray-400 pl-5">
+            Scanning 343 bookings and 390 expense ledger entries...
+          </div>
+        </div>
+      `;
+      stream.appendChild(thinkingBubble);
+      stream.scrollTop = stream.scrollHeight;
+
+      const stepTitle = thinkingBubble.querySelector("#think-step-title");
+      const stepDesc = thinkingBubble.querySelector("#think-step-desc");
+
+      setTimeout(() => {
+        if (stepTitle) stepTitle.textContent = "Analyzing Periodic Performance & Margins...";
+        if (stepDesc) stepDesc.textContent = "Benchmarking cash velocity and expense burn rates...";
+      }, 700);
+
+      setTimeout(() => {
+        if (stepTitle) stepTitle.textContent = "Synthesizing Strategic Guidance...";
+        if (stepDesc) stepDesc.textContent = "Formulating actionable operational decisions...";
+      }, 1400);
+
+      try {
+        const [res] = await Promise.all([
+          fetch("/api/query", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ question })
+          }),
+          new Promise(r => setTimeout(r, 1800))
+        ]);
+        const data = await res.json();
+        document.getElementById(loadId)?.remove();
+        renderAdvisorResponse(data, stream);
+      } catch (err) {
+        document.getElementById(loadId)?.remove();
+        const errBubble = document.createElement("div");
+        errBubble.className = "p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs";
+        errBubble.textContent = "Error: " + err.message;
+        stream.appendChild(errBubble);
+      }
+    }
+
+    function renderAdvisorResponse(data, stream) {
+      const bubble = document.createElement("div");
+      bubble.className = "flex justify-start w-full";
+
+      const recommendationsHtml = (data.actionable_recommendations || []).map(r => `
+        <li class="flex items-start gap-2 text-xs text-amber-100">
+          <i class="fa-solid fa-check text-emerald-400 mt-1 flex-shrink-0 text-[11px]"></i>
+          <span>${r}</span>
+        </li>
+      `).join("");
+
+      let tableHtml = "";
+      const tableData = data.table_data || [];
+      if (tableData.length > 0 && typeof tableData[0] === 'object') {
+        const keys = Object.keys(tableData[0]).slice(0, 5);
+        const thead = keys.map(k => `<th class="p-2 text-gray-400 uppercase text-[10px]">${k.replace(/_/g, ' ')}</th>`).join("");
+        const tbody = tableData.slice(0, 5).map(row => `
+          <tr class="hover:bg-gray-800/40">
+            ${keys.map(k => `<td class="p-2 text-gray-200 border-t border-gray-800 text-xs">${formatVal(row[k])}</td>`).join("")}
+          </tr>
+        `).join("");
+        tableHtml = `
+          <div class="mt-3 border border-gray-800 rounded-xl overflow-hidden">
+            <div class="overflow-x-auto custom-scrollbar max-h-48">
+              <table class="w-full text-left">
+                <thead class="bg-gray-900 sticky top-0">${thead}</thead>
+                <tbody>${tbody}</tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      }
+
+      bubble.innerHTML = `
+        <div class="glass-card p-5 rounded-2xl rounded-tl-sm w-full space-y-4 border-gray-700">
+          
+          <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+              <h4 class="font-bold text-white text-sm">${escapeHtml(data.intent || "Financial Strategic Advisory")}</h4>
+            </div>
+            <span class="text-[11px] text-gray-400">Jayraldine's CFO Copilot</span>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-gray-900/80 border border-gray-800 text-xs text-gray-300">
+            <div class="font-semibold text-gray-400 uppercase tracking-wider text-[10px] mb-1">Database Reality & Financial Numbers</div>
+            <div class="text-white text-sm font-medium leading-relaxed">${data.data_verdict || ""}</div>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs space-y-1">
+            <div class="font-bold text-amber-300 uppercase tracking-wider text-[10px] flex items-center gap-1.5">
+              <i class="fa-solid fa-brain"></i> Advisor Strategic Assessment
+            </div>
+            <p class="text-amber-100 text-xs leading-relaxed">${data.advisor_opinion || ""}</p>
+          </div>
+
+          ${data.trade_offs_and_risks ? `
+            <div class="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-xs space-y-1">
+              <div class="font-bold text-rose-300 uppercase tracking-wider text-[10px] flex items-center gap-1.5">
+                <i class="fa-solid fa-triangle-exclamation"></i> Risks & Strategic Trade-offs
+              </div>
+              <p class="text-rose-100 text-xs leading-relaxed">${data.trade_offs_and_risks}</p>
+            </div>
+          ` : ''}
+
+          ${recommendationsHtml ? `
+            <div class="p-3.5 rounded-xl bg-gray-900/90 border border-gray-800 space-y-2">
+              <div class="font-bold text-emerald-400 uppercase tracking-wider text-[10px] flex items-center gap-1.5">
+                <i class="fa-solid fa-bullseye"></i> Concrete Action Plan
+              </div>
+              <ul class="space-y-1.5">${recommendationsHtml}</ul>
+            </div>
+          ` : ''}
+
+          ${tableHtml}
+        </div>
+      `;
+
+      stream.appendChild(bubble);
+      stream.scrollTop = stream.scrollHeight;
+    }
+
+    // THE COST OF EVERYTHING LIVE CALCULATOR
+    async function calculateCustomCostLive() {
+      const payload = {
+        quote_price: parseFloat(document.getElementById("cb-price").value) || 0,
+        pax: parseInt(document.getElementById("cb-pax").value) || 1,
+        cost_meat_poultry: parseFloat(document.getElementById("cb-meat").value) || 0,
+        cost_seafood_specialty: parseFloat(document.getElementById("cb-seafood").value) || 0,
+        cost_produce_veggies: parseFloat(document.getElementById("cb-produce").value) || 0,
+        cost_rice_staples: parseFloat(document.getElementById("cb-staples").value) || 0,
+        cost_dessert_drinks: parseFloat(document.getElementById("cb-dessert").value) || 0,
+        cost_lechon: parseFloat(document.getElementById("cb-lechon").value) || 0,
+        cook_count: parseInt(document.getElementById("cb-cooks").value) || 0,
+        cook_rate: parseFloat(document.getElementById("cb-cook-rate").value) || 0,
+        server_count: parseInt(document.getElementById("cb-servers").value) || 0,
+        server_rate: parseFloat(document.getElementById("cb-server-rate").value) || 0,
+        transport_fuel: parseFloat(document.getElementById("cb-fuel").value) || 0,
+        rentals_linens: parseFloat(document.getElementById("cb-rentals").value) || 0,
+        disposables_packaging: parseFloat(document.getElementById("cb-disposables").value) || 0,
+        venue_fee_or_commission: parseFloat(document.getElementById("cb-venue").value) || 0
+      };
+
+      try {
+        const res = await fetch("/api/calculate-custom-cost", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const r = await res.json();
+
+        document.getElementById("cb-res-profit").textContent = `₱${r.gross_profit.toLocaleString()}`;
+        document.getElementById("cb-res-margin").textContent = `${r.margin_pct}%`;
+        document.getElementById("cb-res-costs").textContent = `₱${r.total_direct_costs.toLocaleString()}`;
+        document.getElementById("cb-res-food").textContent = `₱${r.total_food_cost.toLocaleString()} (${r.food_cost_pct}%)`;
+        document.getElementById("cb-res-labor").textContent = `₱${r.total_labor_cost.toLocaleString()} (${r.labor_cost_pct}%)`;
+        document.getElementById("cb-res-prime").textContent = `${r.prime_cost_pct}%`;
+        document.getElementById("cb-res-pax-profit").textContent = `₱${r.profit_per_pax.toLocaleString()} / head`;
+
+        const badgeEl = document.getElementById("cb-res-badge");
+        badgeEl.textContent = r.status;
+        if (r.badge === 'emerald') {
+          badgeEl.className = "px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+          document.getElementById("cb-res-margin").className = "text-3xl font-black text-emerald-400 font-mono mt-0.5";
+        } else if (r.badge === 'amber') {
+          badgeEl.className = "px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30";
+          document.getElementById("cb-res-margin").className = "text-3xl font-black text-amber-400 font-mono mt-0.5";
+        } else {
+          badgeEl.className = "px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30";
+          document.getElementById("cb-res-margin").className = "text-3xl font-black text-rose-400 font-mono mt-0.5";
+        }
+
+        document.getElementById("cb-res-title").textContent = r.tone_title;
+        document.getElementById("cb-res-commentary").textContent = r.commentary;
+        document.getElementById("cb-res-advice").textContent = r.advice;
+      } catch (e) {
+        console.error("Cost calculation error:", e);
+      }
+    }
+
+    // EXPENSE BURN SENTINEL
+    async function loadExpenseBurn() {
+      try {
+        const res = await fetch("/api/expense-burn");
+        const b = await res.json();
+
+        document.getElementById("burn-status-title").textContent = b.status;
+        document.getElementById("burn-period").textContent = b.period;
+        document.getElementById("burn-rev").textContent = `₱${b.month_revenue.toLocaleString()}`;
+        document.getElementById("burn-exp").textContent = `₱${b.month_expenses.toLocaleString()}`;
+        document.getElementById("burn-rate").textContent = `${b.burn_rate_pct}% of revenue`;
+        document.getElementById("burn-ceiling").textContent = `₱${b.safe_spending_ceiling.toLocaleString()}`;
+        document.getElementById("burn-remaining").textContent = `₱${b.remaining_budget.toLocaleString()}`;
+        document.getElementById("burn-explanation").textContent = b.verdict;
+
+        const card = document.getElementById("burn-verdict-card");
+        if (b.badge === 'rose') {
+          card.className = "glass-card p-6 rounded-2xl space-y-5 lg:col-span-1 border-rose-500/30 glow-rose";
+          document.getElementById("burn-status-title").className = "text-xl font-black text-rose-400 leading-tight";
+        } else if (b.badge === 'amber') {
+          card.className = "glass-card p-6 rounded-2xl space-y-5 lg:col-span-1 border-amber-500/30 glow-gold";
+          document.getElementById("burn-status-title").className = "text-xl font-black text-amber-400 leading-tight";
+        } else {
+          card.className = "glass-card p-6 rounded-2xl space-y-5 lg:col-span-1 border-emerald-500/30 glow-emerald";
+          document.getElementById("burn-status-title").className = "text-xl font-black text-emerald-400 leading-tight";
+        }
+
+        const stepsContainer = document.getElementById("burn-action-steps");
+        stepsContainer.innerHTML = (b.action_plan || []).map(step => `
+          <div class="p-2.5 rounded-xl bg-gray-900 border border-gray-800 text-xs text-gray-200 flex items-start gap-2">
+            <i class="fa-solid fa-arrow-right text-amber-400 mt-1 flex-shrink-0"></i>
+            <span>${step}</span>
+          </div>
+        `).join("");
+
+        const catContainer = document.getElementById("burn-category-list");
+        catContainer.innerHTML = (b.category_breakdown || []).map(c => `
+          <div class="p-2.5 rounded-xl bg-gray-900/60 border border-gray-800 text-xs">
+            <span class="text-gray-400 text-[10px] block truncate">${c.exp_category}</span>
+            <span class="font-bold font-mono text-white">₱${c.cat_amount.toLocaleString()}</span>
+          </div>
+        `).join("");
+
+      } catch (e) {
+        console.error("Expense burn load error:", e);
+      }
+    }
+
+    async function loadFoodSets() {
+      const container = document.getElementById("foodsets-container");
+      try {
+        const res = await fetch("/api/food-sets");
+        const data = await res.json();
+        const sets = data.sets || [];
+
+        container.innerHTML = sets.map(s => `
+          <div class="glass-card p-5 rounded-2xl space-y-4 border-gray-700">
+            <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+              <div>
+                <h4 class="font-extrabold text-white text-base">${s.set_code}</h4>
+                <p class="text-[11px] text-gray-400">20 Pax Drop-off Package</p>
+              </div>
+              <div class="text-right">
+                <span class="text-xs text-gray-400">Price</span>
+                <div class="text-lg font-black text-amber-400">₱${s.selling_price.toLocaleString()}</div>
+              </div>
+            </div>
+
+            <p class="text-xs text-gray-300 font-medium">${s.name}</p>
+
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div class="p-2.5 rounded-xl bg-gray-900 border border-gray-800">
+                <span class="text-[10px] text-gray-400">Total COGS</span>
+                <div class="font-bold text-white mt-0.5">₱${s.total_cogs.toLocaleString()}</div>
+              </div>
+              <div class="p-2.5 rounded-xl bg-gray-900 border border-gray-800">
+                <span class="text-[10px] text-gray-400">Contribution Margin</span>
+                <div class="font-black ${s.margin_pct >= 40 ? 'text-emerald-400' : 'text-amber-400'} mt-0.5">${s.margin_pct}%</div>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[11px] text-amber-200 leading-relaxed">
+              ${s.advisor_note}
+            </div>
+          </div>
+        `).join("");
+      } catch (e) {
+        container.innerHTML = `<div class="p-6 text-rose-400 text-xs">Failed to load food sets: ${e.message}</div>`;
+      }
+    }
+
+    async function loadReceivables() {
+      const tbody = document.getElementById("receivables-table-body");
+      try {
+        const res = await fetch("/api/receivables");
+        const data = await res.json();
+        const rec = data.receivables || [];
+
+        tbody.innerHTML = rec.map(r => `
+          <tr class="hover:bg-gray-800/40 transition">
+            <td class="p-3 font-semibold text-white">${escapeHtml(r.bk_customer_name)}</td>
+            <td class="p-3 text-gray-300">${escapeHtml(r.bk_occasion)}</td>
+            <td class="p-3 text-gray-400">${r.bk_event_date}</td>
+            <td class="p-3 text-right font-mono text-gray-300">₱${r.bk_total_amount.toLocaleString()}</td>
+            <td class="p-3 text-right font-mono text-emerald-400">₱${r.bk_amount_paid.toLocaleString()}</td>
+            <td class="p-3 text-right font-mono font-bold text-rose-400">₱${r.outstanding_balance.toLocaleString()}</td>
+            <td class="p-3 text-center">
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${r.priority_color === 'rose' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : (r.priority_color === 'amber' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' : 'bg-blue-500/20 text-blue-400 border border-blue-500/30')}">
+                ${r.priority}
+              </span>
+            </td>
+            <td class="p-3 text-xs text-gray-300">${r.advice}</td>
+          </tr>
+        `).join("");
+      } catch (e) {
+        tbody.innerHTML = `<tr><td colspan="8" class="p-6 text-center text-rose-400">Failed to load receivables.</td></tr>`;
+      }
+    }
+
+    async function loadEvents() {
+      const tbody = document.getElementById("all-events-table-body");
+      try {
+        const res = await fetch("/api/events");
+        const data = await res.json();
+        cachedEvents = data.events || [];
+        renderEventsTable(cachedEvents);
+      } catch (e) {
+        tbody.innerHTML = `<tr><td colspan="9" class="p-6 text-center text-rose-400">Failed to load events.</td></tr>`;
+      }
+    }
+
+    function renderEventsTable(events) {
+      const tbody = document.getElementById("all-events-table-body");
+      tbody.innerHTML = events.map(e => `
+        <tr class="hover:bg-gray-800/40 transition">
+          <td class="p-3 text-gray-400 font-mono">${escapeHtml(e.bk_booking_ref || '')}</td>
+          <td class="p-3 font-semibold text-white">${escapeHtml(e.bk_customer_name)}</td>
+          <td class="p-3 text-gray-300">${escapeHtml(e.bk_occasion || '')}</td>
+          <td class="p-3 text-gray-400">${e.bk_event_date}</td>
+          <td class="p-3 text-right font-mono text-gray-300">${e.bk_pax}</td>
+          <td class="p-3 text-right font-mono text-white">₱${e.bk_total_amount.toLocaleString()}</td>
+          <td class="p-3 text-right font-mono text-emerald-400">₱${e.bk_amount_paid.toLocaleString()}</td>
+          <td class="p-3 text-right font-mono ${e.balance > 0 ? 'text-rose-400 font-bold' : 'text-gray-500'}">₱${e.balance.toLocaleString()}</td>
+          <td class="p-3 text-gray-400 truncate max-w-[150px]">${escapeHtml(e.bk_venue || '-')}</td>
+        </tr>
+      `).join("");
+    }
+
+    function filterEventsTable() {
+      const q = document.getElementById("event-filter").value.toLowerCase();
+      const filtered = cachedEvents.filter(e => 
+        (e.bk_customer_name && e.bk_customer_name.toLowerCase().includes(q)) ||
+        (e.bk_occasion && e.bk_occasion.toLowerCase().includes(q)) ||
+        (e.bk_venue && e.bk_venue.toLowerCase().includes(q))
+      );
+      renderEventsTable(filtered);
+    }
+
+    function formatVal(v) {
+      if (v === null || v === undefined) return '-';
+      if (typeof v === 'number') {
+        return v % 1 !== 0 ? v.toFixed(2) : v.toLocaleString();
+      }
+      return escapeHtml(String(v));
+    }
+
+    function escapeHtml(str) {
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+  </script>
+</body>
+</html>
